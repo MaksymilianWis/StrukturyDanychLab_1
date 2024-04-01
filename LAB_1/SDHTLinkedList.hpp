@@ -1,17 +1,17 @@
 #pragma once
+#include "LinkedList.hpp"
 
-struct node {
-	int data_;
-	node* next_;
-	node* prev_;
+//struct node {
+//	int data_;
+//	node* next_;
+//	node* prev_;
+//
+//	node() : data_(0), next_(nullptr), prev_(nullptr) {};
+//	node(int data) : data_(data), next_(nullptr), prev_(nullptr) {};
+//};
 
-	node() : data_(0), next_(nullptr), prev_(nullptr) {};
-	node(int data) : data_(data), next_(nullptr), prev_(nullptr) {};
-};
-
-class SDHTLinkedList {
+class SDHTLinkedList :public LinkedList {
 private:
-	node* head_;
 	node* tail_;
 	unsigned size_;
 	node* current_;
@@ -19,6 +19,7 @@ public:
 	SDHTLinkedList();
 
 	int getdata();// data of current
+	unsigned getsize();
 
 	void addfront(int data);
 	void addat(unsigned place, int data);
@@ -27,6 +28,8 @@ public:
 	void delfront();
 	void delat(unsigned place);
 	void delback();
+
+	int search(int data);
 
 	node* next();
 	void back();// wraca current_ na poczatek

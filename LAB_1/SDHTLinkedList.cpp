@@ -2,7 +2,7 @@
 #include "SDHTLinkedList.hpp"
 #include "iostream"
 
-SDHTLinkedList::SDHTLinkedList() : head_(nullptr), tail_(nullptr), current_(nullptr), size_(0) {}
+SDHTLinkedList::SDHTLinkedList() : tail_(nullptr), current_(nullptr), size_(0) {}
 
 int SDHTLinkedList::getdata() {
 	return current_->data_;
@@ -89,18 +89,22 @@ void SDHTLinkedList::addback(int data) {
 }
 
 void SDHTLinkedList::delback() {
-	if (tail_ == nullptr) return;
 	//tworzenie tymczasowego node wskazuj¹cego najpierw na head_
 	node* temp;
-	temp = tail_;
+	temp = head_;
 
 	node* prevtemp;
 	prevtemp = temp;
 
-	//jezeli lista pusta
-	if (tail_ != nullptr || temp == tail_) {
-		delete tail_;
-		tail_ = nullptr;
+	//szukanie pustego next_
+	while (temp->next_) {
+		prevtemp = temp;
+		temp = temp->next_;
+	}
+
+	//jezeli lista pusta zwroc 0
+	if (!head_ || temp == head_) {
+		delete head_;
 		head_ = nullptr;
 		size_--;
 		return;
@@ -190,6 +194,25 @@ void SDHTLinkedList::delfront() {
 	return;
 }
 
+int SDHTLinkedList::search(int data) {
+	node* temp = head_;
+
+	// sprawdzanie czy nie pusta
+	if (temp == nullptr) {
+		std::cout << "ERROR nie odnaleziono danej, tablica pusta\n";
+		return NULL;
+	}
+
+	// przeszukiwanie
+	while (temp->data_ != data) {
+		if (temp->next_ == nullptr) {
+			return NULL;
+		}
+		temp = temp->next_;
+	}
+	return temp->data_;
+}
+
 node* SDHTLinkedList::next() {
 	//jezeli lista pusta zwroc 0
 	if (!current_) return 0;
@@ -210,4 +233,8 @@ void SDHTLinkedList::printAll() {
 		printf("Elemend %d to: %d\n", i, temp->data_);
 		temp = temp->next_;
 	}
+}
+
+unsigned SDHTLinkedList::getsize() {
+	return size_;
 }

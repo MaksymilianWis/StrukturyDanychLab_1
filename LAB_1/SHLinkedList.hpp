@@ -1,19 +1,18 @@
 #pragma once
+#include "LinkedList.hpp"
 
-struct SHnode {
-	int data_;
-	SHnode* next_;
+//struct node {
+//	int data_;
+//	node* next_;
+//
+//	node() : data_(0), next_(nullptr) {};
+//	node(int data) : data_(data), next_(nullptr) {};
+//};
 
-	SHnode() : data_(0), next_(nullptr) {};
-	SHnode(int data) : data_(data), next_(nullptr) {};
-};
-
-class SHLinkedList {
+class SHLinkedList :public LinkedList {
 private:
-	SHnode* head_;
-	SHnode* current_;
+	// zmienne w rodzicu
 public:
-	SHLinkedList();
 
 	int getdata();// data of current
 
@@ -25,7 +24,9 @@ public:
 	void delat(unsigned place);//licz¹c od 0
 	void delback();
 
-	SHnode* next();
+	int search(int data);
+
+	node* next();
 	void back();//wraca current na poczatek
 
 	void printAll();

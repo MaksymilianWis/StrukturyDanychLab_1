@@ -2,15 +2,6 @@
 #include "SHLinkedList.hpp"
 #include "iostream"
 
-SHLinkedList::SHLinkedList() : head_(nullptr), current_(nullptr) {
-	//head_ = new SHnode();
-	//if (!head_) {
-	//	printf("ERROR could not create head_");
-	//	return;
-	//}
-	//current_ = head_;
-}
-
 int SHLinkedList::getdata() {
 	return current_->data_;
 }
@@ -18,15 +9,15 @@ int SHLinkedList::getdata() {
 void SHLinkedList::addfront(int data) {
 
 	if (!head_) {
-		head_ = new SHnode();
+		head_ = new node();
 		head_->data_ = data;
 		return;
 	}
 
-	SHnode* newnode;
+	node* newnode;
 
 	// nadpisywanie danych
-	newnode = new SHnode(data);
+	newnode = new node(data);
 
 	newnode->next_ = head_;
 
@@ -35,9 +26,9 @@ void SHLinkedList::addfront(int data) {
 
 
 void SHLinkedList::addat(unsigned place, int data) {
-	SHnode* temp = head_;
-	SHnode* temp2;
-	SHnode* new_node = new SHnode;
+	node* temp = head_;
+	node* temp2;
+	node* new_node = new node;
 
 	if (place == 0) {
 		addfront(data);
@@ -74,14 +65,14 @@ void SHLinkedList::addat(unsigned place, int data) {
 void SHLinkedList::addback(int data) {
 
 	// tworzenie tymczasowego node wskazuj¹cego najpierw na head_
-	SHnode* temp;
+	node* temp;
 
-	if (!head_) head_ = new SHnode();
+	if (!head_) head_ = new node();
 
 	temp = head_;
 
 	// nadpisywanie danych
-	SHnode* newnode = new SHnode(data);
+	node* newnode = new node(data);
 
 	// szukanie pustego next_
 	while (temp->next_) temp = temp->next_;
@@ -92,10 +83,10 @@ void SHLinkedList::addback(int data) {
 
 void SHLinkedList::delback() {
 	// tworzenie tymczasowego node wskazuj¹cego najpierw na head_
-	SHnode* temp;
+	node* temp;
 	temp = head_;
 
-	SHnode* prevtemp;
+	node* prevtemp;
 	prevtemp = temp;
 
 	// szukanie pustego next_
@@ -119,8 +110,8 @@ void SHLinkedList::delback() {
 }
 
 void SHLinkedList::delat(unsigned place) {
-	SHnode* temp = head_;
-	SHnode* temp2;
+	node* temp = head_;
+	node* temp2;
 
 	if (place == 0) {
 		delfront();
@@ -163,7 +154,7 @@ void SHLinkedList::delat(unsigned place) {
 }
 
 void SHLinkedList::delfront() {
-	SHnode* temp;
+	node* temp;
 
 	// jezeli lista pusta zwroc 0
 	if (!head_ || !head_->next_) {
@@ -181,7 +172,26 @@ void SHLinkedList::delfront() {
 	return;
 }
 
-SHnode* SHLinkedList::next() {
+int SHLinkedList::search(int data) {
+	node* temp = head_;
+
+	// sprawdzanie czy nie pusta
+	if (temp == nullptr){
+		std::cout << "ERROR nie odnaleziono danej, tablica pusta\n";
+		return NULL;
+	}
+
+	// przeszukiwanie
+	while (temp->data_ != data) {
+		if (temp->next_ == nullptr) {
+			return NULL;
+		}
+		temp = temp->next_;
+	}
+	return temp->data_;
+}
+
+node* SHLinkedList::next() {
 	// jezeli lista pusta zwroc 0
 	if (!current_) return 0;
 
@@ -194,7 +204,7 @@ void SHLinkedList::back() {
 }
 
 void SHLinkedList::printAll() {
-	SHnode* temp = head_;
+	node* temp = head_;
 	unsigned i = 0;
 
 	for (i; temp != nullptr; i++) {

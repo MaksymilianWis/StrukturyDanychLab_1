@@ -1,20 +1,35 @@
+#include "ArrayList.hpp"
+#include "SDHTLinkedList.hpp"
+#include "SHLinkedList.hpp"
+#include "SHTLinkedList.hpp"
+#include "Zapis.hpp"
+#include "random"
+
+#include <iostream>
+#include <time.h>
+
 int main() {
 	// -----------------------------------------------------PARAMETRY-----------------------------------------------------
-	const unsigned copies = 100000;
-	unsigned positions = 100;
+	const unsigned copies = 1000;
+	//unsigned positions = 100;
 	SHLinkedList* list = new SHLinkedList[copies];
-	Zapis plik("pliki_csv/SHLinkedList_addat2.csv");
+	Zapis plik("pliki_csv/SHLinkedList_search.csv");
 
 	unsigned base_size = 1000;
 	for (unsigned position = 0; position < base_size; position++) {
+
+		std::random_device rd_put;
+		std::uniform_int_distribution<unsigned> dist_put(0, base_size);
+		unsigned random_data = dist_put(rd_put); unsigned seed = 0;
+
 		for (unsigned i = 0; i < copies; i++) {
-			list[i].addfront(5);
+			list[i].addfront(random_data);
 		}
 	}
-	
+
 
 	// -----------------------------------------------------TESTY-----------------------------------------------------
-	for (unsigned position = 0; position < positions; position++) {
+	for (unsigned position = 0; position < base_size; position++) {
 		printf("____________dla %d elementu dodanego do tablicy____________\n\n\n", position);
 		// generowanie random seed
 		//unsigned seed = time(NULL) + position;
@@ -22,13 +37,13 @@ int main() {
 		//unsigned random_place = rand() % base_size;
 
 		std::random_device rd;
-		std::uniform_int_distribution<unsigned> dist(0, 100);
-		unsigned random_place = dist(rd); unsigned seed = 0;
-		std::cout << seed << "\n" << random_place << "\n";
+		std::uniform_int_distribution<unsigned> dist(0, base_size);
+		unsigned random_data = dist(rd); unsigned seed = 0;
+		std::cout << seed << "\n" << random_data << "\n";
 
 		clock_t start = clock();
 		for (unsigned i = 0; i < copies; i++) {
-			list[i].addat(random_place, (i + 1) * (position + 1));
+			list[i].search(random_data);
 		}
 		clock_t duration = clock() - start;
 

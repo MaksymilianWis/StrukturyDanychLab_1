@@ -2,8 +2,8 @@
 #include "SHTLinkedList.hpp"
 #include "iostream"
 
-SHTLinkedList::SHTLinkedList() : head_(nullptr), tail_(nullptr), current_(nullptr), size_(0) {
-	//head_ = new SHTnode();
+SHTLinkedList::SHTLinkedList() :size_(0), tail_(nullptr){
+	//head_ = new node();
 	//tail_ = head_;
 	//if (!head_) {
 	//	printf("ERROR could not create head_");
@@ -20,22 +20,18 @@ int SHTLinkedList::getdata() {
 	return current_->data_;
 }
 
-unsigned SHTLinkedList::getsize() {
-	return size_;
-}
-
 void SHTLinkedList::addfront(int data) {
-	if (!head_) head_ = new SHTnode();
+	if (!head_) head_ = new node();
 
 	if (!head_->data_) {
 		head_->data_ = data;
 		return;
 	}
 
-	SHTnode* newnode;
+	node* newnode;
 
 	//nadpisywanie danych
-	newnode = new SHTnode(data);
+	newnode = new node(data);
 
 	newnode->next_ = head_;
 
@@ -44,9 +40,9 @@ void SHTLinkedList::addfront(int data) {
 }
 
 void SHTLinkedList::addat(unsigned place, int data) {
-	SHTnode* temp = head_;
-	SHTnode* temp2;
-	SHTnode* new_node = new SHTnode;
+	node* temp = head_;
+	node* temp2;
+	node* new_node = new node;
 
 	if (place == 0) {
 		addfront(data);
@@ -83,10 +79,10 @@ void SHTLinkedList::addat(unsigned place, int data) {
 }
 
 void SHTLinkedList::addback(int data) {
-	if (!tail_) tail_ = new SHTnode();
+	if (!tail_) tail_ = new node();
 
 	//nadpisywanie danych
-	SHTnode* newnode = new SHTnode(data);
+	node* newnode = new node(data);
 
 	//dodawanie na koniec
 	tail_->next_ = newnode;
@@ -96,18 +92,23 @@ void SHTLinkedList::addback(int data) {
 }
 
 void SHTLinkedList::delback() {
-	if (tail_ == nullptr) return;
+	if (head_ == nullptr) return;
 	//tworzenie tymczasowego node wskazuj¹cego najpierw na head_
-	SHTnode* temp;
-	temp = tail_;
+	node* temp;
+	temp = head_;
 
-	SHTnode* prevtemp;
+	node* prevtemp;
 	prevtemp = temp;
 
+	//szukanie pustego next_
+	while (temp->next_) {
+		prevtemp = temp;
+		temp = temp->next_;
+	}
+
 	//jezeli lista pusta
-	if (tail_ != nullptr || temp == tail_) {
-		delete tail_;
-		tail_ = nullptr;
+	if (!head_ || temp == head_) {
+		delete head_;
 		head_ = nullptr;
 		size_--;
 		return;
@@ -124,9 +125,9 @@ void SHTLinkedList::delback() {
 }
 
 void SHTLinkedList::delat(unsigned place) {
-	SHTnode* temp = head_;
-	SHTnode* temp2;
-	SHTnode* new_node = new SHTnode;
+	node* temp = head_;
+	node* temp2;
+	node* new_node = new node;
 
 	if (place == 0) {
 		delfront();
@@ -165,7 +166,7 @@ void SHTLinkedList::delat(unsigned place) {
 }
 
 void SHTLinkedList::delfront() {
-	SHTnode* temp;
+	node* temp;
 
 	//jezeli lista pusta zwroc 0
 	if (!head_ || !head_->next_) {
@@ -185,7 +186,26 @@ void SHTLinkedList::delfront() {
 	return;
 }
 
-SHTnode* SHTLinkedList::next() {
+int SHTLinkedList::search(int data) {
+	node* temp = head_;
+
+	// sprawdzanie czy nie pusta
+	if (temp == nullptr) {
+		std::cout << "ERROR nie odnaleziono danej, tablica pusta\n";
+		return NULL;
+	}
+
+	// przeszukiwanie
+	while (temp->data_ != data) {
+		if (temp->next_ == nullptr) {
+			return NULL;
+		}
+		temp = temp->next_;
+	}
+	return temp->data_;
+}
+
+node* SHTLinkedList::next() {
 	//jezeli lista pusta zwroc 0
 	if (!current_) return 0;
 
@@ -198,11 +218,15 @@ void SHTLinkedList::back() {
 }
 
 void SHTLinkedList::printAll() {
-	SHTnode* temp = head_;
+	node* temp = head_;
 	unsigned i = 0;
 
 	for (i; temp != nullptr; i++) {
 		printf("Elemend %d to: %d\n", i, temp->data_);
 		temp = temp->next_;
 	}
+}
+
+unsigned SHTLinkedList::getsize() {
+	return size_;
 }

@@ -26,13 +26,14 @@ void dynamicArray::increaseCapacity() {
         int* buffer = new int[dynamicArrayCapacity*2];
 
         // Kopiujemy istniejące elementy do nowego bufora
-        for (int i = 0; i < dynamicArraySize+1; i++) {
+        for (int i = 0; i < dynamicArraySize; i++) {
             buffer[i] = dynamicArrayPtr[i];
         }
 
         // Usuwamy stary bufor
         delete[] dynamicArrayPtr;
 
+        //dynamicArrayPtr = new dynamicArray[dynamicArrayCapacity];
         // Przypisujemy nowy bufor do dynamicArrayPtr
         dynamicArrayPtr = buffer;
         dynamicArrayCapacity *= 2;

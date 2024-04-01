@@ -12,9 +12,9 @@ using namespace std;
 
 class dynamicArray {
 private:
-    int dynamicArrayCapacity = 0; //zmienna rozmiaru tablicy
-    int dynamicArraySize = 0; //ilość elementów w tablicy
-    int* dynamicArrayPtr = NULL; //wskaźnik na tablice
+    int dynamicArrayCapacity; //zmienna rozmiaru tablicy
+    int dynamicArraySize; //ilość elementów w tablicy
+    int* dynamicArrayPtr; //wskaźnik na tablice
 
     void increaseCapacity();
     void decreaseCapacity();
