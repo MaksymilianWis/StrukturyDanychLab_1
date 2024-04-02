@@ -180,7 +180,7 @@ void runLinkedList(string type_of_list) {
     } while (choice2 != 'k');
 }
 
-void runTestDynamicArray(const unsigned numOfArrays, int j) {
+void runTestDynamicArray( unsigned const numOfArrays, int j) {
     clock_t start, duration;
     Zapis plik_addFront("ArrayList_addFront.csv");
     Zapis plik_addBack("ArrayList_addBack.csv");
@@ -196,6 +196,9 @@ void runTestDynamicArray(const unsigned numOfArrays, int j) {
     // Number of dynamicArray objects
     dynamicArray** arrays = new dynamicArray*[numOfArrays];
     dynamicArray** backupArrays = new dynamicArray*[numOfArrays];
+
+    //dynamicArray* arrays[numOfArrays];
+    //dynamicArray* backupArrays[numOfArrays];
 
     dynamicArray dynamicArray2(4);
     dynamicArray2.fillFromArrayCSV("random_numbersi.csv");
@@ -496,8 +499,10 @@ int main() {
             cout << "Running tests..." << endl;
             cout << "Please choose the number of arrays, "
                 "than hit enter and choose the number of iteration: " << endl;
-            int numOfArrays, j;
-            cin >> numOfArrays >> j;
+            int numOfArrays;
+            int j;
+            cin >> numOfArrays;
+            cin >> j;
             cout << "Please wait..." << endl;
             runTestDynamicArray(numOfArrays, j);
             break;
