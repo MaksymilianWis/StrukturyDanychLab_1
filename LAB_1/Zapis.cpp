@@ -4,11 +4,12 @@
 #include <fstream>
 #include <iostream>
 
-
-Zapis::Zapis(std::string nazwa_pliku) : nazwa_pliku_(nazwa_pliku) {
-	file_.open(nazwa_pliku_);
-	file_ << "pozycja;ilosc;czas ca³kowity(ms);czas/ilosc(ms)\n";
-	file_.close();
+Zapis::Zapis(std::string nazwa_pliku, bool overwrite) : nazwa_pliku_(nazwa_pliku) {
+	if (overwrite){
+		file_.open(nazwa_pliku_);
+		file_ << "pozycja;ilosc;czas ca³kowity(ns);czas/ilosc(ns)\n";
+		file_.close();
+	}
 };
 
 std::string Zapis::shot(unsigned iteration, unsigned time, unsigned how_many_time) {

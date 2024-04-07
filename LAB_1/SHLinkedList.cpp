@@ -82,6 +82,7 @@ void SHLinkedList::addback(int data) {
 }
 
 void SHLinkedList::delback() {
+	if (head_ == nullptr) return;
 	// tworzenie tymczasowego node wskazuj¹cego najpierw na head_
 	node* temp;
 	temp = head_;

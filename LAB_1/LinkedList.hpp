@@ -42,6 +42,6 @@ public:
 	bool isempty();// zwraca 1 jezeli pusta
 
 	virtual void printAll() = 0;
-	void fillFromListCSV(const std::string& filename);
+	void fillFromListCSV(const std::string& filename, int maxElements);
 
 };

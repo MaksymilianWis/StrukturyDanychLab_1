@@ -89,6 +89,7 @@ void SDHTLinkedList::addback(int data) {
 }
 
 void SDHTLinkedList::delback() {
+	if (head_ == nullptr) return;
 	//tworzenie tymczasowego node wskazuj¹cego najpierw na head_
 	node* temp;
 	temp = head_;

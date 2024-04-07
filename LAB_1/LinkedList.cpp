@@ -29,7 +29,7 @@ unsigned LinkedList::getsize() {
 	return 0;
 }
 
-void LinkedList::fillFromListCSV(const std::string& filename) {
+void LinkedList::fillFromListCSV(const std::string& filename, int maxElements) {
     // Otwieramy plik CSV
     std::ifstream file(filename);
     if (!file.is_open()) {
@@ -38,10 +38,11 @@ void LinkedList::fillFromListCSV(const std::string& filename) {
     }
 
     std::string line;
-    while (std::getline(file, line)) {
+    int elementsAdded = 0;
+    while (std::getline(file, line) && elementsAdded < maxElements) {
         std::istringstream iss(line);
         std::string value;
-        while (std::getline(iss, value, ',')) {
+        while (std::getline(iss, value, ',') && elementsAdded < maxElements) {
             int element;
             try {
                 // Konwertujemy wartoœæ z ci¹gu znaków na liczbê ca³kowit¹
@@ -52,7 +53,8 @@ void LinkedList::fillFromListCSV(const std::string& filename) {
                 continue;
             }
             // Dodajemy element do tablicy
-            this->addfront(element);
+            addfront(element);
+            elementsAdded++;
         }
     }
 
