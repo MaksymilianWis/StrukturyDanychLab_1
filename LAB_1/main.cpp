@@ -1,187 +1,25 @@
-#include "ArrayList.hpp"
 #include "SDHTLinkedList.hpp"
 #include "SHLinkedList.hpp"
 #include "SHTLinkedList.hpp"
-#include "Zapis.hpp"
-#include "random"
 #include "LinkedList.hpp"
 
 #include <iostream>
 #include <time.h>
+#include "random"
 
 #include "dynamicArray.h"
 #include "test.h"
 #include "cstdlib"
 #include <ctime>
+#include "Zapis.h"
+#include <chrono>
 
 using namespace std;
 
 void runDynamicArray() {
-    dynamicArray dynamicArray1(4);
-    int element, index;
-    char choice2;
-    do {
-        cout << "a. addFront" << endl;
-        cout << "b. addBack" << endl;
-        cout << "c. add" << endl;
-        cout << "d. removeFront" << endl;
-        cout << "e. removeBack" << endl;
-        cout << "f. remove" << endl;
-        cout << "g. display" << endl;
-        cout << "h. display with capacity" << endl;
-        cout << "i. isDynamicArrayEmpty" << endl;
-        cout << "j. getDynamicArrayElementAt" << endl;
-        cout << "k. getDynamicArraySize" << endl;
-        cout << "l. fillFromArrayCSV" << endl;
-        cout << "m. Exit" << endl;
-
-        cin >> choice2;
-        switch (choice2) {
-        case 'a':
-            cout << "Enter the element you want to add: ";
-            cin >> element;
-            dynamicArray1.addFront(element);
-            break;
-        case 'b':
-            cout << "Enter the element you want to add (back): ";
-            cin >> element;
-            dynamicArray1.addBack(element);
-            break;
-        case 'c':
-            cout << "Enter the index and the element you want to add: ";
-            cin >> index >> element;
-            dynamicArray1.add(index, element);
-            break;
-        case 'd':
-            cout << "Removing the first element..." << endl;
-            dynamicArray1.removeFront();
-            break;
-        case 'e':
-            cout << "Removing the last element..." << endl;
-            dynamicArray1.removeBack();
-            break;
-        case 'f':
-            cout << "Enter the index you want to remove: ";
-            cin >> index;
-            dynamicArray1.remove(index);
-            break;
-        case 'g':
-            dynamicArray1.displayDynamicArray();
-            break;
-        case 'h':
-            dynamicArray1.displayDynamicArrayWCapacity();
-            break;
-        case 'i':
-            if (dynamicArray1.isDynamicArrayEmpty()) {
-                cout << "The dynamicArray is empty." << endl;
-            }
-            else {
-                cout << "The dynamicArray is not empty." << endl;
-            }
-            break;
-        case 'j':
-            cout << "Enter the index of the element you want to get: ";
-            cin >> index;
-            cout << "The element at index " << index << " is: " << dynamicArray1.getDynamicArrayElementAt(index)
-                << endl;
-            break;
-        case 'k':
-            cout << "The size of the dynamicArray is: " << dynamicArray1.getDynamicArraySize() << endl;
-            break;
-        case 'l':
-            cout << "Filling the dynamicArray from a CSV file: random_numbers.csv ..." << endl;
-            dynamicArray1.fillFromArrayCSV("random_numbers.csv");
-            break;
-        case 'm':
-            cout << "Exiting..." << endl;
-            break;
-
-        }
-    } while (choice2 != 'm');
 }
 
-void runLinkedList(string type_of_list) {
-    LinkedList* list;
-    if (type_of_list == "H") list = new SHLinkedList;
-    else if (type_of_list == "HT")list = new SHTLinkedList;
-    else if (type_of_list == "DHT")list = new SDHTLinkedList;
-    else list = new SDHTLinkedList;
-
-    int element, index;
-    char choice2;
-    do {
-        cout << "a. addfront" << endl;
-        cout << "b. addback" << endl;
-        cout << "c. addat" << endl;
-        cout << "d. delfront" << endl;
-        cout << "e. delback" << endl;
-        cout << "f. delat" << endl;
-        cout << "g. display" << endl;
-        cout << "h. isLinkedListEmpty" << endl;
-        cout << "i. search for" << endl;
-        cout << "j. getLinkedListSize" << endl;
-        cout << "k. Exit" << endl;
-
-        cin >> choice2;
-        switch (choice2) {
-        case 'a':
-            cout << "Enter the element you want to add: ";
-            cin >> element;
-            list->addfront(element);
-            break;
-        case 'b':
-            cout << "Enter the element you want to add (back): ";
-            cin >> element;
-            list->addback(element);
-            break;
-        case 'c':
-            cout << "Enter the index and the element you want to add: ";
-            cin >> index >> element;
-            list->addat(index, element);
-            break;
-        case 'd':
-            cout << "Removing the first element..." << endl;
-            list->delfront();
-            break;
-        case 'e':
-            cout << "Removing the last element..." << endl;
-            list->delback();
-            break;
-        case 'f':
-            cout << "Enter the index you want to remove: ";
-            cin >> index;
-            list->delat(index);
-            break;
-        case 'g':
-            list->printAll();
-            break;
-        case 'h':
-            if (list->isempty()) {
-                cout << "The LinkedList is empty." << endl;
-            }
-            else {
-                cout << "The LinkedList is not empty." << endl;
-            }
-            break;
-        case 'i':
-            cout << "Enter the element you want to get: ";
-            cin >> element;
-            cout << "The element " << element << " is: " << list->search(element)
-                << endl;
-            break;
-        case 'j':
-            cout << "The size of the dynamicArray is: " << list->getsize() << "\n";
-            break;
-        case 'k':
-            cout << "Exiting..." << endl;
-            break;
-
-        }
-    } while (choice2 != 'k');
-}
-
-void runTestDynamicArray( unsigned const numOfArrays, int j) {
-    clock_t start, duration;
+void testingDynamicArray(const unsigned numOfArrays, int size, int iteration) {
     Zapis plik_addFront("ArrayList_addFront.csv");
     Zapis plik_addBack("ArrayList_addBack.csv");
     Zapis plik_add("ArrayList_add.csv");
@@ -190,389 +28,228 @@ void runTestDynamicArray( unsigned const numOfArrays, int j) {
     Zapis plik_remove("ArrayList_remove.csv");
     Zapis plik_find("ArrayList_find.csv");
 
-    test::generateRandomNumbers(100, 0, 525, "random_numbers.csv", 5);
-    test::generateRandomNumbers(500, 0, 525, "random_numbersi.csv", 3);
-
-    // Number of dynamicArray objects
-    dynamicArray** arrays = new dynamicArray*[numOfArrays];
-    dynamicArray** backupArrays = new dynamicArray*[numOfArrays];
-
-    //dynamicArray* arrays[numOfArrays];
-    //dynamicArray* backupArrays[numOfArrays];
-
     dynamicArray dynamicArray2(4);
-    dynamicArray2.fillFromArrayCSV("random_numbersi.csv");
+    dynamicArray2.fillFromArrayCSV("random_numbersi.csv", 50000);
 
-    // Tworzymy 10 000 tablic o pojemnoœci 4
+    cout << "Please wait..." << endl;
+    dynamicArray** arrays = new dynamicArray * [numOfArrays];
+    dynamicArray** backupArrays = new dynamicArray * [numOfArrays];
+
+    // Tworzymy numOfArrays tablic o pojemnoœci 4
     for (int i = 0; i < numOfArrays; ++i) {
         arrays[i] = new dynamicArray(4);
         backupArrays[i] = new dynamicArray(4);
     }
-
-    for (int i = 0; i < numOfArrays; ++i) {
-        arrays[i]->fillFromArrayCSV("random_numbers.csv");
-        backupArrays[i]->fillFromArrayCSV("random_numbers.csv");
+    for (int i = 0; i < numOfArrays; i++) {
+        arrays[i]->fillFromArrayCSV("random_numbers.csv", size);
+        backupArrays[i]->fillFromArrayCSV("random_numbers.csv", size);
     }
-    char choice1;
-    do {
-        cout << "a. addFront" << endl;
-        cout << "b. addBack" << endl;
-        cout << "c. add" << endl;
-        cout << "d. removeFront" << endl;
-        cout << "e. removeBack" << endl;
-        cout << "f. remove" << endl;
-        cout << "g. find number" << endl;
-        cout << "h. Exit" << endl;
 
-        cin >> choice1;
-        switch (choice1) {
-        case 'a':
-            for (int k = 0; k < j; k++) {
-                start = clock();
-                for (unsigned i = 0; i < numOfArrays; i++) {
-                    arrays[i]->addFront(5);
-                }
-                duration = clock() - start;
-                double durationInSeconds = double(duration) / CLOCKS_PER_SEC;
-                plik_addFront.shot(k, unsigned(duration), numOfArrays);
-            }
-            break;
-        case 'b':
-            for (int k = 0; k < j; k++) {
-                start = clock();
-                for (unsigned i = 0; i < numOfArrays; i++) {
-                    arrays[i]->addBack(5);
-                }
-                duration = clock() - start;
-                double durationInSeconds = double(duration) / CLOCKS_PER_SEC;
-                plik_addBack.shot(k, unsigned(duration), numOfArrays);
-            }
-            break;
-        case 'c':
-            for (int k = 0; k < j; k++) {
-                int index = dynamicArray2.getDynamicArrayElementAt(k);
-                start = clock();
-                for (unsigned i = 0; i < numOfArrays; i++) {
-                    arrays[i]->add(index, 5);
-                }
-                duration = clock() - start;
-                double durationInSeconds = double(duration) / CLOCKS_PER_SEC;
-                plik_add.shot(k, unsigned(duration), numOfArrays);
-            }
-            break;
-        case 'd':
-            for (int k = 0; k < j; k++) {
-                start = clock();
-                for (unsigned i = 0; i < numOfArrays; i++) {
-                    arrays[i]->removeFront();
-                }
-                duration = clock() - start;
-                double durationInSeconds = double(duration) / CLOCKS_PER_SEC;
-                plik_removeFront.shot(k, unsigned(duration), numOfArrays);
-            }
-            break;
-        case 'e':
-            for (int k = 0; k < j; k++) {
-                start = clock();
-                for (unsigned i = 0; i < numOfArrays; i++) {
-                    arrays[i]->removeBack();
-                }
-                duration = clock() - start;
-                double durationInSeconds = double(duration) / CLOCKS_PER_SEC;
-                plik_removeBack.shot(k, unsigned(duration), numOfArrays);
-            }
-            break;
-        case 'f':
-            for (int k = 0; k < j; k++) {
-                int index = dynamicArray2.getDynamicArrayElementAt(k);
-                start = clock();
+    //cout << arrays[1]->getDynamicArraySize() << endl;
 
-                for (unsigned i = 0; i < numOfArrays; i++) {
-                    arrays[i]->remove(index);
-                }
-                duration = clock() - start;
-                double durationInSeconds = double(duration) / CLOCKS_PER_SEC;
-                plik_remove.shot(k, unsigned(duration), numOfArrays);
-            }
-            break;
-        case 'g':
-            for (unsigned i = 0; i < j; i++) {
-                int number = dynamicArray2.getDynamicArrayElementAt(i);
-                start = clock();
-                for (int j = 0; j < numOfArrays; j++) {
-                    if (arrays[i]->getDynamicArrayElementAt(j) == 9) {
-                        break;
-                    }
-                }
-                duration = clock() - start;
-                plik_find.shot(i, unsigned(duration), numOfArrays);
-            }
-            break;
-        case 'h':
-            cout << "Exiting..." << endl;
-            break;
-        default:
-            cout << "Invalid choice. Please try again." << endl;
-        }
-        arrays[1]->displayDynamicArray();
-        for (unsigned i = 0; i < numOfArrays; i++) {
-            arrays[i] = backupArrays[i];
-        }
+    //addFront
+    auto begin = std::chrono::high_resolution_clock::now();
+    for (unsigned i = 0; i < numOfArrays; i++) {
+        arrays[i]->addFront(5);
+    }
+    auto end = std::chrono::high_resolution_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+    //double durationInNanoSeconds = double(duration) / CLOCKS_PER_SEC;
+    plik_addFront.shot(iteration, elapsed.count(), size);
+    //addBack
+    auto begin2 = std::chrono::high_resolution_clock::now();
+    for (unsigned i = 0; i < numOfArrays; i++) {
+        arrays[i]->addBack(5);
+    }
+    auto end2 = std::chrono::high_resolution_clock::now();
+    auto elapsed2 = std::chrono::duration_cast<std::chrono::nanoseconds>(end2 - begin2);
+    plik_addBack.shot(iteration, elapsed2.count(), size);
 
+    //add
+    int index = dynamicArray2.getDynamicArrayElementAt(0);
+    auto begin3 = std::chrono::high_resolution_clock::now();
+    for (unsigned i = 0; i < numOfArrays; i++) {
+        arrays[i]->add(index, 5);
+    }
+    auto end3 = std::chrono::high_resolution_clock::now();
+    auto elapsed3 = std::chrono::duration_cast<std::chrono::nanoseconds>(end3 - begin3);
+    plik_add.shot(iteration, elapsed3.count(), size);
 
-    } while (choice1 != 'g');
+    //removeFront
+    auto begin4 = std::chrono::high_resolution_clock::now();
+    for (unsigned i = 0; i < numOfArrays; i++) {
+        arrays[i]->removeFront();
+    }
+    auto end4 = std::chrono::high_resolution_clock::now();
+    auto elapsed4 = std::chrono::duration_cast<std::chrono::nanoseconds>(end4 - begin4);
+    plik_removeFront.shot(iteration, elapsed4.count(), size);
+
+    //removeBack
+    auto begin5 = std::chrono::high_resolution_clock::now();
+    for (unsigned i = 0; i < numOfArrays; i++) {
+        arrays[i]->removeBack();
+    }
+    auto end5 = std::chrono::high_resolution_clock::now();
+    auto elapsed5 = std::chrono::duration_cast<std::chrono::nanoseconds>(end5 - begin5);
+    plik_removeBack.shot(iteration, elapsed5.count(), size);
+
+    //remove
+    index = dynamicArray2.getDynamicArrayElementAt(0);
+    auto begin6 = std::chrono::high_resolution_clock::now();
+    for (unsigned i = 0; i < numOfArrays; i++) {
+        arrays[i]->remove(index);
+    }
+    auto end6 = std::chrono::high_resolution_clock::now();
+    auto elapsed6 = std::chrono::duration_cast<std::chrono::nanoseconds>(end6 - begin6);
+    plik_remove.shot(iteration, elapsed6.count(), size);
+
+    //find
+    auto begin7 = std::chrono::high_resolution_clock::now();
+    for (unsigned i = 0; i < numOfArrays; i++) {
+        int number = dynamicArray2.getDynamicArrayElementAt(i);
+        arrays[i]->findElement(number);
+    }
+    auto end7 = std::chrono::high_resolution_clock::now();
+    auto elapsed7 = std::chrono::duration_cast<std::chrono::nanoseconds>(end7 - begin7);
+    plik_find.shot(iteration, elapsed7.count(), size);
+
 
     for (int i = 0; i < numOfArrays; ++i) {
         delete arrays[i];
+        delete backupArrays[i];
     }
 }
+void runTestsDynamicArray(const unsigned numOfArrays) {
 
-void runTestLinkedList(string type_of_list, const unsigned numOfLists, int j) {
-    // deklaracja odpowiedniej listy
-    LinkedList** list = new LinkedList*[numOfLists];
-    LinkedList** backuplist = new LinkedList*[numOfLists];
-    if (type_of_list == "H") {
-        //list = new SHLinkedList[numOfLists];
-        //backuplist = new SHLinkedList[numOfLists];
-        for (unsigned i = 0; i < numOfLists; ++i) {
-            list[i] = new SHLinkedList;
-            backuplist[i] = new SHLinkedList;
-        }
-    }
-    else if (type_of_list == "HT"){
-        //list = new SHTLinkedList[numOfLists];
-        //backuplist = new SHTLinkedList[numOfLists];
-        for (unsigned i = 0; i < numOfLists; ++i) {
-            list[i] = new SHTLinkedList;
-            backuplist[i] = new SHTLinkedList;
-        }
-    }
-    else if (type_of_list == "DHT") {
-        //list = new SDHTLinkedList[numOfLists];
-        //backuplist = new SDHTLinkedList[numOfLists];
-        for (unsigned i = 0; i < numOfLists; ++i) {
-            list[i] = new SDHTLinkedList;
-            backuplist[i] = new SDHTLinkedList;
-        }
-    }
-    else{
-        //list = new SDHTLinkedList[numOfLists];
-        //backuplist = new SDHTLinkedList[numOfLists];
-        for (unsigned i = 0; i < numOfLists; ++i) {
-            list[i] = new SDHTLinkedList;
-            backuplist[i] = new SDHTLinkedList;
-        }
-    }
+    test::generateRandomNumbers(80000, 0, 100000, "random_numbers.csv", 5);
+    test::generateRandomNumbers(80000, 0, 60000, "random_numbersi.csv", 3);
 
-    // deklaracja zmiennych czsu oraz potencjalnych plikow do zapisu testow
-    clock_t start, duration;
-    Zapis plik_addFront("LinkedList_addFront.csv");
-    Zapis plik_addBack("LinkedList_addBack.csv");
-    Zapis plik_add("LinkedList_add.csv");
-    Zapis plik_removeFront("LinkedList_removeFront.csv");
-    Zapis plik_removeBack("LinkedList_removeBack.csv");
-    Zapis plik_remove("LinkedList_remove.csv");
-
-    test::generateRandomNumbers(100, 0, 525, "random_numbers.csv", 5);
-
-    //// Tworzymy numOfLists list
-    //for (int i = 0; i < numOfLists; ++i) {
-    //    list[i] = new dynamicArray(4);
-    //    backuplist[i] = new 
-    //}
-
-    for (int i = 0; i < numOfLists; ++i) {
-        list[i]->fillFromListCSV("random_numbers.csv");
-        backuplist[i]->fillFromListCSV("random_numbers.csv");
-    }
-    char choice1;
+    char choice3;
     do {
-        cout << "a. addFront" << endl;
-        cout << "b. addBack" << endl;
-        cout << "c. add" << endl;
-        cout << "d. removeFront" << endl;
-        cout << "e. removeBack" << endl;
-        cout << "f. remove" << endl;
-        cout << "g. Exit" << endl;
+        cout << "1. array_10" << endl;
+        cout << "2. array_100" << endl;
+        cout << "3. array_1k" << endl;
+        cout << "4. array_2k" << endl;
+        cout << "5. array_4k" << endl;
+        cout << "6. array_8k" << endl;
+        cout << "7. array_16k" << endl;
+        cout << "8. array_32k" << endl;
+        cout << "9. array_64k" << endl;
+        cout << "X. array_128k" << endl;
+        cout << "A. Test all" << endl;
+        cout << "0. Exit" << endl;
 
-        cin >> choice1;
-        switch (choice1) {
-        case 'a':
-            for (int k = 0; k < j; k++) {
-                start = clock();
-                for (unsigned i = 0; i < numOfLists; i++) {
-                    list[i]->addfront(5);
-                }
-                duration = clock() - start;
-                double durationInSeconds = double(duration) / CLOCKS_PER_SEC;
-                plik_addFront.shot(k, unsigned(duration), numOfLists);
-            }
-            break;
-        case 'b':
-            for (int k = 0; k < j; k++) {
-                start = clock();
-                for (unsigned i = 0; i < numOfLists; i++) {
-                    list[i]->addback(5);
-                }
-                duration = clock() - start;
-                double durationInSeconds = double(duration) / CLOCKS_PER_SEC;
-                plik_addBack.shot(k, unsigned(duration), numOfLists);
-            }
-            break;
-        case 'c':
-            for (int k = 0; k < j; k++) {
-                start = clock();
-                for (unsigned i = 0; i < numOfLists; i++) {
-                    list[i]->addat(5, 5);
-                }
-                duration = clock() - start;
-                double durationInSeconds = double(duration) / CLOCKS_PER_SEC;
-                plik_add.shot(k, unsigned(duration), numOfLists);
-            }
-            break;
-        case 'd':
-            for (int k = 0; k < j; k++) {
-                start = clock();
-                for (unsigned i = 0; i < numOfLists; i++) {
-                    list[i]->delfront();
-                }
-                duration = clock() - start;
-                double durationInSeconds = double(duration) / CLOCKS_PER_SEC;
-                plik_removeFront.shot(k, unsigned(duration), numOfLists);
-            }
-            break;
-        case 'e':
-            for (int k = 0; k < j; k++) {
-                start = clock();
-                for (unsigned i = 0; i < numOfLists; i++) {
-                    list[i]->delback();
-                }
-                duration = clock() - start;
-                double durationInSeconds = double(duration) / CLOCKS_PER_SEC;
-                plik_removeBack.shot(k, unsigned(duration), numOfLists);
-            }
-            break;
-        case 'f':
-            for (int k = 0; k < j; k++) {
-                start = clock();
-                for (unsigned i = 0; i < numOfLists; i++) {
-                    list[i]->delat(5);
-                }
-                duration = clock() - start;
-                double durationInSeconds = double(duration) / CLOCKS_PER_SEC;
-                plik_remove.shot(k, unsigned(duration), numOfLists);
-            }
-            break;
-        case 'g':
+
+
+        cin >> choice3;
+        switch (choice3) {
+        case '0':
             cout << "Exiting..." << endl;
             break;
+        case '1':
+        {
+            testingDynamicArray(numOfArrays, 10, 1);
+            break;
+        }
+        case '2':
+        {
+            testingDynamicArray(numOfArrays, 100, 2);
+            break;
+        }
+        case '3':
+        {
+            testingDynamicArray(numOfArrays, 1000, 3);
+            break;
+        }
+        case '4':
+        {
+            testingDynamicArray(numOfArrays, 2000, 4);
+            break;
+        }
+        case '5':
+        {
+            testingDynamicArray(numOfArrays, 4000, 5);
+            break;
+        }
+        case '6':
+        {
+            testingDynamicArray(numOfArrays, 8000, 6);
+            break;
+        }
+        case '7':
+        {
+            testingDynamicArray(numOfArrays, 16000, 7);
+            break;
+        }
+        case '8':
+        {
+            testingDynamicArray(numOfArrays, 32000, 8);
+            break;
+        }
+        case '9':
+        {
+            testingDynamicArray(numOfArrays, 64000, 9);
+            break;
+        }
+        case 'X':
+        {
+            testingDynamicArray(numOfArrays, 128000, 10);
+            break;
+        }
+        case 'A':
+        {
+            testingDynamicArray(numOfArrays, 10, 1);
+            testingDynamicArray(numOfArrays, 100, 2);
+            testingDynamicArray(numOfArrays, 1000, 3);
+            testingDynamicArray(numOfArrays, 2000, 4);
+            testingDynamicArray(numOfArrays, 4000, 5);
+            testingDynamicArray(numOfArrays, 8000, 6);
+            testingDynamicArray(numOfArrays, 16000, 7);
+            testingDynamicArray(numOfArrays, 32000, 8);
+            testingDynamicArray(numOfArrays, 64000, 9);
+            testingDynamicArray(numOfArrays, 128000, 10);
+            break;
+        }
+
         default:
             cout << "Invalid choice. Please try again." << endl;
+            break;
         }
-        list[0]->printAll();
-        for (unsigned i = 0; i < numOfLists; i++) {
-            list[i] = backuplist[i];
-        }
-
-
-    } while (choice1 != 'g');
+    } while (choice3 != '0');
 }
 
-// przetestuj menu
+
 int main() {
     char choice;
     do {
         cout << "Menu:" << endl;
-        cout << "a. Your dynamicArray" << endl;
-        cout << "b. DynamicArray tests" << endl;
-        cout << "c. Your linkedList" << endl;
-        cout << "d. LinkedList tests" << endl;
-        cout << "e. Exit" << endl;
+        cout << "1. Your dynamicArray" << endl;
+        cout << "2. Tests" << endl;
+        cout << "3. Exit" << endl;
         cout << "Enter your choice: " << endl;
         cin >> choice;
 
         switch (choice) {
-        case 'a':
+        case '1':
             runDynamicArray();
             break;
-        case 'b':
+        case '2':
             cout << "Running tests..." << endl;
-            cout << "Please choose the number of arrays, "
-                "than hit enter and choose the number of iteration: " << endl;
+            cout << "Please choose the number of arrays, " << endl;
             int numOfArrays;
-            int j;
             cin >> numOfArrays;
-            cin >> j;
             cout << "Please wait..." << endl;
-            runTestDynamicArray(numOfArrays, j);
+            runTestsDynamicArray(numOfArrays);
             break;
-        case 'c':
-            char sub_choice;
-            do{
-                cout << "Please choose type of an list:\n";
-                cout << "a.Head\nb.Head and Tail\nc.Two way Head, Tail\nd.Exit" << endl;
-                cin >> sub_choice;
-                switch (sub_choice) {
-                case 'a':
-                    runLinkedList("H");
-                    break;
-                case 'b':
-                    runLinkedList("HT");
-                    break;
-                case 'c':
-                    runLinkedList("DHT");
-                    break;
-                case 'd':
-                    cout << "Exiting..." << endl;
-                    break;
-                default:
-                    cout << "Invalid choice. Please try again." << endl;
-                    break;
-                }
-            } while (sub_choice != 'd');
-
-        case 'd':
-        do {
-            cout << "Please choose type of an list:\n";
-            cout << "a.Head\nb.Head and Tail\nc.Two way Head, Tail\nd.Exit" << endl;
-            cin >> sub_choice;
-
-            if(sub_choice != 'd') {
-                cout << "Running tests..." << endl;
-                cout << "Please choose the number of arrays, "
-                    "than hit enter and choose the number of iteration: " << endl;
-                int numOfArrays, j;
-                cin >> numOfArrays >> j;
-            }
-
-            switch (sub_choice) {
-            case 'a':
-                runTestLinkedList("H", numOfArrays, j);
-                break;
-            case 'b':
-                runTestLinkedList("HT", numOfArrays, j);
-                break;
-            case 'c':
-                runTestLinkedList("DHT", numOfArrays, j);
-                break;
-            case 'd':
-                cout << "Exiting..." << endl;
-                break;
-            default:
-                cout << "Invalid choice. Please try again." << endl;
-                break;
-            }
-            // jezeli pomyslnie wybrana opcja to po jednym razie wyjdz z petli
-            break;
-        } while (sub_choice != 'd');
-        case 'e':
+        case '3':
             cout << "Exiting..." << endl;
             break;
         default:
             cout << "Invalid choice. Please try again." << endl;
             break;
         }
-    } while (choice != 'e');
+
+    } while (choice != '3');
 
     return 0;
 }

@@ -26,6 +26,7 @@ public:
     int getDynamicArraySize() const;
     bool isDynamicArrayEmpty();
     int getDynamicArrayElementAt(int index);
+    int findElement(int element);
 
     void displayDynamicArray();
     void displayDynamicArrayWCapacity();
@@ -36,7 +37,7 @@ public:
     void removeBack();
     void removeFront();
 
-    void fillFromArrayCSV(const string& filename);
+    void fillFromArrayCSV(const string& filename, int maxElements);
 };
 
 
