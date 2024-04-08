@@ -180,7 +180,7 @@ void runLinkedList(string type_of_list) {
 }
 
 // testy
-void testingDynamicArray(const unsigned numOfArrays, int size, bool overwrite, int iteration) {
+void testingDynamicArray(const unsigned numOfArrays, int size, int iteration, bool overwrite) {
     Zapis plik_addFront("ArrayList_addFront.csv", overwrite);
     Zapis plik_addBack("ArrayList_addBack.csv", overwrite);
     Zapis plik_add("ArrayList_add.csv", overwrite);
@@ -292,13 +292,8 @@ void testingDynamicArray(const unsigned numOfArrays, int size, bool overwrite, i
     auto end7 = std::chrono::high_resolution_clock::now();
     auto elapsed7 = std::chrono::duration_cast<std::chrono::nanoseconds>(end7 - begin7);
     plik_find.shot(iteration, elapsed7.count(), size);
-
-
-    for (int i = 0; i < numOfArrays; ++i) {
-        delete arrays[i];
-        delete backupArrays[i];
-    }
 }
+
 void testingLinkedList(const unsigned numOfLists, int size, int iteration,bool overwrite, string type_of_list) {
     // deklaracja odpowiedniej listy
     LinkedList** list = new LinkedList * [numOfLists];
@@ -339,13 +334,13 @@ void testingLinkedList(const unsigned numOfLists, int size, int iteration,bool o
 
     // deklaracja zmiennych czsu oraz potencjalnych plikow do zapisu testow
     clock_t start, duration;
-    Zapis plik_addFront("LinkedList_addFront.csv", overwrite);
-    Zapis plik_addBack("LinkedList_addBack.csv", overwrite);
-    Zapis plik_add("LinkedList_addat.csv", overwrite);
-    Zapis plik_removeFront("LinkedList_delFront.csv", overwrite);
-    Zapis plik_removeBack("LinkedList_dellBack.csv", overwrite);
-    Zapis plik_remove("LinkedList_dellat.csv", overwrite);
-    Zapis plik_find("LinkedList_search.csv", overwrite);
+    Zapis plik_addFront(type_of_list + "LinkedList_addFront.csv", overwrite);
+    Zapis plik_addBack(type_of_list + "LinkedList_addBack.csv", overwrite);
+    Zapis plik_add(type_of_list + "LinkedList_addat.csv", overwrite);
+    Zapis plik_removeFront(type_of_list + "LinkedList_delFront.csv", overwrite);
+    Zapis plik_removeBack(type_of_list + "LinkedList_dellBack.csv", overwrite);
+    Zapis plik_remove(type_of_list + "LinkedList_dellat.csv", overwrite);
+    Zapis plik_find(type_of_list + "LinkedList_search.csv", overwrite);
 
     dynamicArray dynamicArray2(4);
     dynamicArray2.fillFromArrayCSV("random_numbersi.csv", 50000);
