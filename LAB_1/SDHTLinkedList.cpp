@@ -89,33 +89,24 @@ void SDHTLinkedList::addback(int data) {
 }
 
 void SDHTLinkedList::delback() {
-	if (head_ == nullptr) return;
+	if (tail_ == nullptr) return;
 	//tworzenie tymczasowego node wskazuj¹cego najpierw na head_
 	node* temp;
-	temp = head_;
+	temp = tail_->prev_;
 
-	node* prevtemp;
-	prevtemp = temp;
-
-	//szukanie pustego next_
-	while (temp->next_) {
-		prevtemp = temp;
-		temp = temp->next_;
-	}
 
 	//jezeli lista pusta zwroc 0
-	if (!head_ || temp == head_) {
+	if (tail_ == nullptr || temp == tail_) {
+		delete tail_;
+		tail_ = nullptr;
 		delete head_;
 		head_ = nullptr;
 		size_--;
 		return;
 	}
 
-	//odlaczanie wskaznikow i usuwanie
-	prevtemp->next_ = nullptr;
 	delete temp;
-
-	tail_ = prevtemp;
+	temp = nullptr;
 
 	size_--;
 	return;
