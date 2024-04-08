@@ -217,10 +217,6 @@ void testingDynamicArray(const unsigned numOfArrays, int size, bool overwrite, i
     auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
     //double durationInNanoSeconds = double(duration) / CLOCKS_PER_SEC;
     plik_addFront.shot(iteration, elapsed.count(), size);
-
-    // wracanie do oryginalnego rozmiaru
-    arrays = backupArrays;
-
     //addBack
     auto begin2 = std::chrono::high_resolution_clock::now();
     for (unsigned i = 0; i < numOfArrays; i++) {
@@ -229,9 +225,6 @@ void testingDynamicArray(const unsigned numOfArrays, int size, bool overwrite, i
     auto end2 = std::chrono::high_resolution_clock::now();
     auto elapsed2 = std::chrono::duration_cast<std::chrono::nanoseconds>(end2 - begin2);
     plik_addBack.shot(iteration, elapsed2.count(), size);
-
-    // wracanie do oryginalnego rozmiaru
-    arrays = backupArrays;
 
     //add
     int index = dynamicArray2.getDynamicArrayElementAt(0);
@@ -243,9 +236,6 @@ void testingDynamicArray(const unsigned numOfArrays, int size, bool overwrite, i
     auto elapsed3 = std::chrono::duration_cast<std::chrono::nanoseconds>(end3 - begin3);
     plik_add.shot(iteration, elapsed3.count(), size);
 
-    // wracanie do oryginalnego rozmiaru
-    arrays = backupArrays;
-
     //removeFront
     auto begin4 = std::chrono::high_resolution_clock::now();
     for (unsigned i = 0; i < numOfArrays; i++) {
@@ -254,9 +244,6 @@ void testingDynamicArray(const unsigned numOfArrays, int size, bool overwrite, i
     auto end4 = std::chrono::high_resolution_clock::now();
     auto elapsed4 = std::chrono::duration_cast<std::chrono::nanoseconds>(end4 - begin4);
     plik_removeFront.shot(iteration, elapsed4.count(), size);
-
-    // wracanie do oryginalnego rozmiaru
-    arrays = backupArrays;
 
     //removeBack
     auto begin5 = std::chrono::high_resolution_clock::now();
@@ -267,9 +254,6 @@ void testingDynamicArray(const unsigned numOfArrays, int size, bool overwrite, i
     auto elapsed5 = std::chrono::duration_cast<std::chrono::nanoseconds>(end5 - begin5);
     plik_removeBack.shot(iteration, elapsed5.count(), size);
 
-    // wracanie do oryginalnego rozmiaru
-    arrays = backupArrays;
-
     //remove
     index = dynamicArray2.getDynamicArrayElementAt(0);
     auto begin6 = std::chrono::high_resolution_clock::now();
@@ -279,9 +263,6 @@ void testingDynamicArray(const unsigned numOfArrays, int size, bool overwrite, i
     auto end6 = std::chrono::high_resolution_clock::now();
     auto elapsed6 = std::chrono::duration_cast<std::chrono::nanoseconds>(end6 - begin6);
     plik_remove.shot(iteration, elapsed6.count(), size);
-
-    // wracanie do oryginalnego rozmiaru
-    arrays = backupArrays;
 
     //find
     auto begin7 = std::chrono::high_resolution_clock::now();
@@ -366,10 +347,6 @@ void testingLinkedList(const unsigned numOfLists, int size, int iteration,bool o
     auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
     //double durationInNanoSeconds = double(duration) / CLOCKS_PER_SEC;
     plik_addFront.shot(iteration, elapsed.count(), size);
-
-    // wracanie do oryginalnego rozmiaru
-    list = backuplist;
-
     //addBack
     auto begin2 = std::chrono::high_resolution_clock::now();
     for (unsigned i = 0; i < numOfLists; i++) {
@@ -378,9 +355,6 @@ void testingLinkedList(const unsigned numOfLists, int size, int iteration,bool o
     auto end2 = std::chrono::high_resolution_clock::now();
     auto elapsed2 = std::chrono::duration_cast<std::chrono::nanoseconds>(end2 - begin2);
     plik_addBack.shot(iteration, elapsed2.count(), size);
-
-    // wracanie do oryginalnego rozmiaru
-    list = backuplist;
 
     //add
     int index = dynamicArray2.getDynamicArrayElementAt(0);
@@ -392,9 +366,6 @@ void testingLinkedList(const unsigned numOfLists, int size, int iteration,bool o
     auto elapsed3 = std::chrono::duration_cast<std::chrono::nanoseconds>(end3 - begin3);
     plik_add.shot(iteration, elapsed3.count(), size);
 
-    // wracanie do oryginalnego rozmiaru
-    list = backuplist;
-
     //removeFront
     auto begin4 = std::chrono::high_resolution_clock::now();
     for (unsigned i = 0; i < numOfLists; i++) {
@@ -403,9 +374,6 @@ void testingLinkedList(const unsigned numOfLists, int size, int iteration,bool o
     auto end4 = std::chrono::high_resolution_clock::now();
     auto elapsed4 = std::chrono::duration_cast<std::chrono::nanoseconds>(end4 - begin4);
     plik_removeFront.shot(iteration, elapsed4.count(), size);
-
-    // wracanie do oryginalnego rozmiaru
-    list = backuplist;
 
     //removeBack
     auto begin5 = std::chrono::high_resolution_clock::now();
@@ -416,9 +384,6 @@ void testingLinkedList(const unsigned numOfLists, int size, int iteration,bool o
     auto elapsed5 = std::chrono::duration_cast<std::chrono::nanoseconds>(end5 - begin5);
     plik_removeBack.shot(iteration, elapsed5.count(), size);
 
-    // wracanie do oryginalnego rozmiaru
-    list = backuplist;
-
     //remove
     index = dynamicArray2.getDynamicArrayElementAt(0);
     auto begin6 = std::chrono::high_resolution_clock::now();
@@ -428,9 +393,6 @@ void testingLinkedList(const unsigned numOfLists, int size, int iteration,bool o
     auto end6 = std::chrono::high_resolution_clock::now();
     auto elapsed6 = std::chrono::duration_cast<std::chrono::nanoseconds>(end6 - begin6);
     plik_remove.shot(iteration, elapsed6.count(), size);
-
-    // wracanie do oryginalnego rozmiaru
-    list = backuplist;
 
     //find
     auto begin7 = std::chrono::high_resolution_clock::now();
@@ -450,16 +412,16 @@ void runTestsDynamicArray(const unsigned numOfArrays) {
 
     char choice3;
     do {
-        cout << "1. array_2k" << endl;
-        cout << "2. array_4k" << endl;
-        cout << "3. array_6k" << endl;
-        cout << "4. array_8k" << endl;
-        cout << "5. array_10k" << endl;
-        cout << "6. array_12k" << endl;
-        cout << "7. array_14k" << endl;
-        cout << "8. array_16k" << endl;
-        cout << "9. array_18k" << endl;
-        cout << "X. array_20k" << endl;
+        cout << "1. array_10" << endl;
+        cout << "2. array_100" << endl;
+        cout << "3. array_1k" << endl;
+        cout << "4. array_2k" << endl;
+        cout << "5. array_4k" << endl;
+        cout << "6. array_8k" << endl;
+        cout << "7. array_16k" << endl;
+        cout << "8. array_32k" << endl;
+        cout << "9. array_64k" << endl;
+        cout << "X. array_128k" << endl;
         cout << "A. Test all" << endl;
         cout << "0. Exit" << endl;
 
@@ -472,66 +434,66 @@ void runTestsDynamicArray(const unsigned numOfArrays) {
             break;
         case '1':
         {
-            testingDynamicArray(numOfArrays, 2000, 1, 1);
+            testingDynamicArray(numOfArrays, 1000, 1, 1);
             break;
         }
         case '2':
         {
-            testingDynamicArray(numOfArrays, 4000, 2, 1);
+            testingDynamicArray(numOfArrays, 2000, 2, 1);
             break;
         }
         case '3':
         {
-            testingDynamicArray(numOfArrays, 6000, 3, 1);
+            testingDynamicArray(numOfArrays, 3000, 3, 1);
             break;
         }
         case '4':
         {
-            testingDynamicArray(numOfArrays, 8000, 4, 1);
+            testingDynamicArray(numOfArrays, 4000, 4, 1);
             break;
         }
         case '5':
         {
-            testingDynamicArray(numOfArrays, 10000, 5, 1);
+            testingDynamicArray(numOfArrays, 5000, 5, 1);
             break;
         }
         case '6':
         {
-            testingDynamicArray(numOfArrays, 12000, 6, 1);
+            testingDynamicArray(numOfArrays, 6000, 6, 1);
             break;
         }
         case '7':
         {
-            testingDynamicArray(numOfArrays, 14000, 7, 1);
+            testingDynamicArray(numOfArrays, 7000, 7, 1);
             break;
         }
         case '8':
         {
-            testingDynamicArray(numOfArrays, 16000, 8, 1);
+            testingDynamicArray(numOfArrays, 8000, 8, 1);
             break;
         }
         case '9':
         {
-            testingDynamicArray(numOfArrays, 18000, 9, 1);
+            testingDynamicArray(numOfArrays, 9000, 9, 1);
             break;
         }
         case 'X':
         {
-            testingDynamicArray(numOfArrays, 20000, 10, 1);
+            testingDynamicArray(numOfArrays, 10000, 10, 1);
             break;
         }
         case 'A':
         {
-            testingDynamicArray(numOfArrays, 2000, 1, 0);
-            testingDynamicArray(numOfArrays, 4000, 2, 0);
-            testingDynamicArray(numOfArrays, 6000, 3, 0);
-            testingDynamicArray(numOfArrays, 8000, 4, 0);
-            testingDynamicArray(numOfArrays, 10000, 5, 0);
-            testingDynamicArray(numOfArrays, 12000, 6, 0);
-            testingDynamicArray(numOfArrays, 14000, 7, 0);
-            testingDynamicArray(numOfArrays, 16000, 8, 0);
-            testingDynamicArray(numOfArrays, 18000, 9, 0);
-            testingDynamicArray(numOfArrays, 20000, 10, 0);
+            testingDynamicArray(numOfArrays, 1000, 1, 0);
+            testingDynamicArray(numOfArrays, 2000, 2, 0);
+            testingDynamicArray(numOfArrays, 3000, 3, 0);
+            testingDynamicArray(numOfArrays, 4000, 4, 0);
+            testingDynamicArray(numOfArrays, 5000, 5, 0);
+            testingDynamicArray(numOfArrays, 6000, 6, 0);
+            testingDynamicArray(numOfArrays, 7000, 7, 0);
+            testingDynamicArray(numOfArrays, 8000, 8, 0);
+            testingDynamicArray(numOfArrays, 9000, 9, 0);
+            testingDynamicArray(numOfArrays, 10000, 10, 0);
             break;
         }
 
@@ -548,16 +510,16 @@ void runTestsLinkedList(const unsigned numOfLists, string type_of_list) {
 
     char choice3;
     do {
-        cout << "1. list_2k" << endl;
-        cout << "2. list_4k" << endl;
-        cout << "3. list_6k" << endl;
-        cout << "4. list_8k" << endl;
-        cout << "5. list_10k" << endl;
-        cout << "6. list_12k" << endl;
-        cout << "7. list_14k" << endl;
-        cout << "8. list_16k" << endl;
-        cout << "9. list_18k" << endl;
-        cout << "X. list_20k" << endl;
+        cout << "1. list_10" << endl;
+        cout << "2. list_100" << endl;
+        cout << "3. list_1k" << endl;
+        cout << "4. list_2k" << endl;
+        cout << "5. list_4k" << endl;
+        cout << "6. list_8k" << endl;
+        cout << "7. list_16k" << endl;
+        cout << "8. list_32k" << endl;
+        cout << "9. list_64k" << endl;
+        cout << "X. list_128k" << endl;
         cout << "A. Test all" << endl;
         cout << "0. Exit" << endl;
 
@@ -570,66 +532,66 @@ void runTestsLinkedList(const unsigned numOfLists, string type_of_list) {
             break;
         case '1':
         {
-            testingLinkedList(numOfLists, 2000, 1, 1, type_of_list);
+            testingLinkedList(numOfLists, 10, 1, 1, type_of_list);
             break;
         }
         case '2':
         {
-            testingLinkedList(numOfLists, 4000, 2, 1, type_of_list);
+            testingLinkedList(numOfLists, 100, 2, 1, type_of_list);
             break;
         }
         case '3':
         {
-            testingLinkedList(numOfLists, 6000, 3, 1, type_of_list);
+            testingLinkedList(numOfLists, 1000, 3, 1, type_of_list);
             break;
         }
         case '4':
         {
-            testingLinkedList(numOfLists, 8000, 4, 1, type_of_list);
+            testingLinkedList(numOfLists, 2000, 4, 1, type_of_list);
             break;
         }
         case '5':
         {
-            testingLinkedList(numOfLists, 10000, 5, 1, type_of_list);
+            testingLinkedList(numOfLists, 4000, 5, 1, type_of_list);
             break;
         }
         case '6':
         {
-            testingLinkedList(numOfLists, 12000, 6, 1, type_of_list);
+            testingLinkedList(numOfLists, 8000, 6, 1, type_of_list);
             break;
         }
         case '7':
         {
-            testingLinkedList(numOfLists, 14000, 7, 1, type_of_list);
+            testingLinkedList(numOfLists, 16000, 7, 1, type_of_list);
             break;
         }
         case '8':
         {
-            testingLinkedList(numOfLists, 16000, 8, 1, type_of_list);
+            testingLinkedList(numOfLists, 32000, 8, 1, type_of_list);
             break;
         }
         case '9':
         {
-            testingLinkedList(numOfLists, 18000, 9, 1, type_of_list);
+            testingLinkedList(numOfLists, 64000, 9, 1, type_of_list);
             break;
         }
         case 'X':
         {
-            testingLinkedList(numOfLists, 20000, 10, 1, type_of_list);
+            testingLinkedList(numOfLists, 128000, 10, 1, type_of_list);
             break;
         }
         case 'A':
         {
-            testingLinkedList(numOfLists, 2000, 1, 0, type_of_list);
-            testingLinkedList(numOfLists, 4000, 2, 0, type_of_list);
-            testingLinkedList(numOfLists, 6000, 3, 0, type_of_list);
-            testingLinkedList(numOfLists, 8000, 4, 0, type_of_list);
-            testingLinkedList(numOfLists, 10000, 5, 0, type_of_list);
-            testingLinkedList(numOfLists, 12000, 6, 0, type_of_list);
-            testingLinkedList(numOfLists, 14000, 7, 0, type_of_list);
-            testingLinkedList(numOfLists, 16000, 8, 0, type_of_list);
-            testingLinkedList(numOfLists, 18000, 9, 0, type_of_list);
-            testingLinkedList(numOfLists, 20000, 10, 0, type_of_list);
+            testingLinkedList(numOfLists, 1000, 1, 0, type_of_list);
+            testingLinkedList(numOfLists, 2000, 2, 0, type_of_list);
+            testingLinkedList(numOfLists, 4000, 3, 0, type_of_list);
+            testingLinkedList(numOfLists, 6000, 4, 0, type_of_list);
+            testingLinkedList(numOfLists, 8000, 5, 0, type_of_list);
+            testingLinkedList(numOfLists, 10000, 6, 0, type_of_list);
+            testingLinkedList(numOfLists, 12000, 7, 0, type_of_list);
+            testingLinkedList(numOfLists, 14000, 8, 0, type_of_list);
+            testingLinkedList(numOfLists, 16000, 9, 0, type_of_list);
+            testingLinkedList(numOfLists, 18000, 10, 0, type_of_list);
             break;
         }
         default:
